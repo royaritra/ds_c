@@ -103,6 +103,8 @@ struct node *insert_beg(struct node* start)
     start=new_node;
     return start;
 }
+
+//function for adding data at the end of a singly linked list
 struct node *insert_end(struct node *start)
 {
     struct node *ptr;
