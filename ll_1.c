@@ -1,3 +1,5 @@
+//various functionalities of singly linked list using c
+
 #include<stdio.h>
 #include<stdlib.h>
 struct node
@@ -31,6 +33,8 @@ int main()
     }while(option!=15);
     return 0;
 }
+
+//function for creating the singly linked list 
 struct node *create_li(struct node* start)
 {
     struct node *ptr,*new_node;
@@ -63,7 +67,7 @@ struct node *create_li(struct node* start)
     }
     return start;
 }
-
+//function to display the singly linked list
 struct node *display(struct node* start)
 {
     struct node *ptr=start;
