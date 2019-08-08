@@ -11,6 +11,7 @@ struct node
 struct node *start;
 struct node *create_li(struct node*);
 struct node *display(struct node*);
+struct node *insert_beg(struct node*);
 
 int main()
 {
@@ -28,6 +29,10 @@ int main()
                     break;
             case 2:
                     start=display(start);
+                    break;
+            case 3:
+                    start=insert_beg(start);
+                    printf("\nNew node at beginning created successfully ");
                     break;
         }
     }while(option!=15);
@@ -70,11 +75,26 @@ struct node *create_li(struct node* start)
 //function to display the singly linked list
 struct node *display(struct node* start)
 {
-    struct node *ptr=start;
-    while(ptr->next!=NULL)
+    struct node *ptr;
+    ptr=start;
+    while(ptr!=NULL)
     {
         printf("\t %d",ptr->data);
         ptr=ptr->next;
     }
+    return start;
+}
+
+//function for inserting node at beginning of a singly linked list
+
+struct node *insert_beg(struct node* start)
+{
+    struct node *new_node= (struct node*)malloc(sizeof(struct node));
+    int value;
+    printf("\nEnter the data the to add: ");
+    scanf("%d",&value);
+    new_node->data=value;
+    new_node->next=start;
+    start=new_node;
     return start;
 }
