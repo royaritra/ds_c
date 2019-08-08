@@ -12,6 +12,7 @@ struct node *start;
 struct node *create_li(struct node*);
 struct node *display(struct node*);
 struct node *insert_beg(struct node*);
+struct node *insert_end(struct node *);
 
 int main()
 {
@@ -19,8 +20,8 @@ int main()
     do
     {
         printf("\nOptions\n");
-        printf("  Enter 1 to create list\n Enter 2 to display list\n Enter 3 to add node at beginning\n\n Enter 15 to close:");
-        printf("Enter Your Option: ");
+        printf("  Enter 1 to create list\n Enter 2 to display list\n Enter 3 to add node at beginning\n Enter 4 to add at ending \n Enter 15 to close:");
+        printf("\nEnter Your Option: ");
         scanf("%d",&option);
         switch(option)
         {
@@ -33,6 +34,10 @@ int main()
             case 3:
                     start=insert_beg(start);
                     printf("\nNew node at beginning created successfully ");
+                    break;
+            case 4:
+                    start=insert_end(start);
+                    printf("new node added at ending");
                     break;
         }
     }while(option!=15);
@@ -96,5 +101,22 @@ struct node *insert_beg(struct node* start)
     new_node->data=value;
     new_node->next=start;
     start=new_node;
+    return start;
+}
+struct node *insert_end(struct node *start)
+{
+    struct node *ptr;
+    ptr=start;
+    int value;
+    printf("\nEnter The Value to add at the end: ");
+    scanf("%d",&value);
+    struct node *new_node = (struct node*)malloc(sizeof(struct node));
+    while(ptr->next!=NULL)
+    {
+        ptr=ptr->next;
+    }
+    ptr->next=new_node;
+    new_node->data=value;
+    new_node->next=NULL;
     return start;
 }
