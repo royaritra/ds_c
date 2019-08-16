@@ -13,14 +13,19 @@ struct node *create_li(struct node*);
 struct node *display(struct node*);
 struct node *insert_beg(struct node*);
 struct node *insert_end(struct node *);
+struct node *delete_beg(struct node *);
+struct node *delete_end(struct node *);
+struct node *delete_node(struct node *);
+struct node *delete_after(struct node *);
+struct node *delete_list(struct node *);
 
 int main()
 {
     int option;
     do
     {
-        printf("\nOptions\n");
-        printf("  Enter 1 to create list\n Enter 2 to display list\n Enter 3 to add node at beginning\n Enter 4 to add at ending \n Enter 15 to close:");
+        printf("\n########Options########\n");
+        printf("  Enter 1 to create list:\n Enter 2 to display list:\n Enter 3 to add node at beginning:\n Enter 4 to add at ending: \n Enter 5 to delete from beginning:\n Enter 6 to delete a particular node:\nEnter 7 for Deleting at end:\n Enter 8 for delete after a value: \n Enter 9 to delete the complete list :\n Enter 15 to close:");
         printf("\nEnter Your Option: ");
         scanf("%d",&option);
         switch(option)
@@ -39,6 +44,30 @@ int main()
                     start=insert_end(start);
                     printf("new node added at ending");
                     break;
+            case 5:
+                    start=delete_beg(start);
+                    printf("Node deleted successfully from beginning");
+                    break;
+            case 6:
+                    start=delete_node(start);
+                    printf("Selected Node deleted successfully");
+                    break;
+
+            case 7:
+                    start=delete_end(start);
+                    printf("Node deleted successfully from ending");
+                    break;
+            case 8:
+                    start=delete_after(start);
+                    printf("Node deleted after the value successfully: ");
+                    break;
+            case 9:
+                start=delete_list(start);
+                printf("LIst has been deleted successfully:");
+                break;
+            
+
+
         }
     }while(option!=15);
     return 0;
@@ -122,3 +151,98 @@ struct node *insert_end(struct node *start)
     new_node->next=NULL;
     return start;
 }
+
+
+
+
+//function for deleting a node from beginning
+struct node *delete_beg(struct node *start)
+{
+    struct node *ptr;
+    ptr=start;
+    start=start->next;
+    free(ptr);
+    return start;
+}
+
+//function for deleting a node from ending
+struct node *delete_end(struct node *start)
+{
+    struct node *ptr;
+    struct node *preptr;
+    ptr=start;
+    while(ptr->next!=NULL)
+    {
+        preptr=ptr;
+        ptr=ptr->next;
+    } 
+    preptr->next=NULL;
+    free(ptr);
+    return start;
+}
+
+//function for deleting any node containing a particular value
+struct node *delete_node(struct node *start)
+{
+    int num;
+    struct node *ptr=start;
+    struct node *preptr;
+    printf("Enter the value of the node you want to delete: ");
+    scanf("%d",&num);
+    if(ptr->data==num)
+    {
+        start=delete_beg(start);
+        return start;
+    }
+    else
+    {
+        while(ptr->data!=num)
+        {
+            preptr=ptr;
+            ptr=ptr->next;
+        }
+        preptr->next=ptr->next;
+        free(ptr);
+        return start;
+    }
+    
+}
+
+//function to delete a node after certain value
+struct node *delete_after(struct node *start)
+{
+    struct node *ptr,*preptr;
+    ptr=start;
+    preptr=ptr;
+    int num;
+    printf("ENter the value after which you want to delete: ");
+    scanf("%d",&num);
+    while(preptr->data!=num)
+    {
+        preptr=ptr;
+        ptr=ptr->next;
+    }
+    preptr->next=ptr->next;
+    free(ptr);
+    return start;
+}
+
+//function to delete the complete list
+struct node *delete_list(struct node *start)
+{
+    struct node *ptr;
+    if(start!=NULL)
+    {
+        ptr=start;
+        while(ptr!=NULL)
+        {
+            printf("%d is to be deleted next\n",ptr->data);
+            start=delete_beg(ptr);
+            ptr=start;
+        }
+
+    }
+    return start;
+}
+
+
